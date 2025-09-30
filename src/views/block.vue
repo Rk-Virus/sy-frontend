@@ -84,7 +84,7 @@ const goBack = () => {
 //   addBlocks(newVal);
 // });
 
-const selectedBlocks: Ref<string[]> = ref([]);
+const selectedBlocks: Ref<string[]> = ref(["box1"]);
 const onBlockSelected = (blockIds: string[]) => {
   selectedBlocks.value = blockIds;
 
