@@ -4,6 +4,8 @@ import type { RouteRecordRaw } from 'vue-router'
 import Devices from '../views/Devices.vue'
 import Dashboard from '../views/dashboard.vue'
 import Block from '../views/block.vue'
+import Robots from '../views/Robots.vue'
+import Team from '../views/Team.vue'
 
 const routes: RouteRecordRaw[] = [
   { 
@@ -20,10 +22,20 @@ const routes: RouteRecordRaw[] = [
     name: 'Devices',
     component: Devices 
   },
+  {
+    path: "/robots",
+    name: "Robots",
+    component: Robots
+  },
   { 
     path: '/block', 
     name: 'Block',
     component: Block 
+  },
+  { 
+    path: '/team', 
+    name: 'Team',
+    component: Team 
   },
 ]
 

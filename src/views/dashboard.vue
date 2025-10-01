@@ -1,8 +1,8 @@
 <script setup lang="ts">
 // import { fetchdashboardData } from "~/service/api";
-// import { useAnalyticsStore } from "~/stores/analyticsStore";
+import { useAnalyticsStore } from "../stores/analyticsStore";
 // import eventEmitter from "~/service/eventEmitter";
-// import useNotifyStore from "~/stores/notifyStore";
+import useNotifyStore from "../stores/notifyStore";
 // import "vue3-circle-progress/dist/circle-progress.css";
 // import CircleProgress from "vue3-circle-progress";
 // import { CircleProgressBar } from 'circle-progress.vue'; // url -> https://github.com/mkolsv/circle-progress.vue
@@ -18,7 +18,7 @@ import {
 } from "chart.js";
 import { Line } from "vue-chartjs";
 import { computed, onMounted, onUnmounted, ref } from "vue";
-// import { useAuthStore } from "~/stores/authStore";
+import { useAuthStore } from "../stores/authStore";
 import { storeToRefs } from "pinia";
 // import Analytics2 from "~/components/Screens/Analytics2.vue";
 import { useRouter } from "vue-router";
@@ -38,34 +38,24 @@ ChartJS.register(
 );
 
 const router = useRouter();
-// const {
-//   setStart,
-//   // setAlert, setError, setSuccess
-// } = useNotifyStore();
+const authStore = useAuthStore();
+const notifyStore = useNotifyStore();
+const analyticsStore = useAnalyticsStore();
 
+const { setStart, setAlert, setError, setSuccess } = (notifyStore);
 // onMounted(() => {
 //   eventEmitter.on("analytics", (data) => {
 //     console.log("analytics", data);
-//   });
+//   });  
 //   setStart("initilize App");
 // });
-// const { selectedOrganization } = storeToRefs(useAuthStore());
+const { selectedOrganization } = storeToRefs(authStore);
 
 // onUnmounted(() => {
 //   console.log("Closing emitter", "unmounted");
 //   eventEmitter.off("analytics");
 // });
 
-// const { data: dashboardData, refetch: refetchdashboardData } = useQuery({
-//   queryKey: ["dashboardData", selectedOrganization.value],
-//   queryFn: () => fetchdashboardData(selectedOrganization.value ?? ''),
-//   enabled: !!selectedOrganization.value,
-//   staleTime: 30000,
-//   refetchOnMount: false,
-//   refetchOnWindowFocus: false,
-// });
-
-// console.log(dashboardData);
 // const totalRobots = computed(() => dashboardData.value?.robotCount || 0);
 // const totalPanelsCleaned = computed(() => dashboardData.value?.totalPanelsCleaned || 0);
 // const totalPanelsCount = computed(() => dashboardData.value?.panelCount || 0);
@@ -82,7 +72,8 @@ const router = useRouter();
 //   // refetchdashboardData();
 // });
 
-// const { getRealTimeAnalytics } = useAnalyticsStore();
+const { getRealTimeAnalytics } = (analyticsStore);
+
 const dailyRunAnalytics = ref([]);
 const isLoading = ref(false);
 const weeklyRunAnalytics = ref([]);
@@ -119,17 +110,7 @@ const weeklyRunAnalytics = ref([]);
 //   return (robotsCompletedRun.value / totalRobots.value) * 100;
 // });
 
-// const analyticsStore = useAnalyticsStore();
-// const { getNewAnalytics } = analyticsStore;
-
-
-// const { data: analyticsData, isLoading: analyticDataLoading } = useQuery(["analytics_DATA"], getNewAnalytics, {
-//   staleTime: 1000 * 60,
-//   refetchInterval: 1000 * 60,
-//   onError: (err: any) => {
-//     console.log(err);
-//   },
-// });
+const { getNewAnalytics } = analyticsStore;
 
 const week = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 

@@ -7,6 +7,7 @@ import { ref, type Ref } from "vue";
 // import BlockForm from "~/components/BlockForm.vue";
 // import type { Block } from "~/models";
 import { useRouter } from "vue-router";
+import ToolBar from "../components/ToolBar.vue";
 // import BlockEdit from "~/components/BlockEdit.vue";
 
 // const analyticsStore = useAnalyticsStore();

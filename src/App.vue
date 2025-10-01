@@ -5,6 +5,7 @@ import HomeLayout from './layout/HomeLayout.vue';
 </script>
 
 <template>
+    <!-- <p>Home layout working?</p> -->
     <HomeLayout />
 </template>
 

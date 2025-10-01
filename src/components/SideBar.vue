@@ -2,19 +2,20 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-// import { fetchProfile } from '~/service/api';
+import { fetchProfile } from '../service/api';
+import { useAuthStore } from '../stores/authStore';
 
 const profile = ref({
     access_level: 1
 });
-// const authStore = useAuthStore();
+const authStore = useAuthStore();
 
 const router = useRouter();
 
 const count = ref("open");
 
 const logOut = () => {
-//   authStore.logout();
+  authStore.logout();
   router.push({ name: "login" });
 };
 </script>
