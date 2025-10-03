@@ -4,8 +4,8 @@ const getAuthToken = () => "sample-token";
 const userId = () => "sample-user-id";
 
 
-const apiEndpoint = "/api/v1";
 console.log(userId);
+const apiEndpoint = "/api/v1";
 const axiosClient = Object.freeze(
   axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL + apiEndpoint,
@@ -21,6 +21,8 @@ const axiosClient = Object.freeze(
 );
 
 axiosClient.interceptors.request.use((config) => {
+  console.log(import.meta.env.VITE_API_BASE_URL)
+
   config.headers.Authorization = `Bearer ${getAuthToken() ?? ""}`;
   config.headers["user-id"] = userId() as string;
   console.log(config.headers, "headers");

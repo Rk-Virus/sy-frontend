@@ -6,36 +6,41 @@ import Dashboard from '../views/dashboard.vue'
 import Block from '../views/block.vue'
 import Robots from '../views/Robots.vue'
 import Team from '../views/Team.vue'
+import Login from '../views/Login.vue'
+import { useAuthStore } from '../stores/authStore'
 
 const routes: RouteRecordRaw[] = [
-  { 
-    path: '/', 
-    name: 'Dashboard',
-    component: Dashboard 
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
   },
   {
-    path:'/dashboard',
-    name:'Dashboard',
-    component: Dashboard  },
-  { 
-    path: '/devices', 
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/devices',
     name: 'Devices',
-    component: Devices 
+    component: Devices,
+    meta: { requiresAuth: true }
   },
   {
     path: "/robots",
     name: "Robots",
     component: Robots
   },
-  { 
-    path: '/block', 
+  {
+    path: '/block',
     name: 'Block',
-    component: Block 
+    component: Block
   },
-  { 
-    path: '/team', 
+  {
+    path: '/team',
     name: 'Team',
-    component: Team 
+    component: Team
   },
 ]
 
@@ -43,5 +48,22 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 })
+
+router.beforeEach(async (to, from) => {
+  try {
+    const auth = useAuthStore();
+    const authenticated = auth.isAuthenticated
+    if (to.meta.requiresAuth && !authenticated) {
+      // User is not authenticated, redirect to login
+      return { path: "/login" };
+    }
+    if ((to.path === "/login" || to.path === "/register") && authenticated) {
+      // User is authenticated and trying to access login, redirect to dashboard
+      return { path: "/dashboard" };
+    }
+  } catch (err) {
+    alert('server is down');
+  }
+});
 
 export default router

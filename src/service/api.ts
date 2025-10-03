@@ -14,6 +14,8 @@ import type {
 import axiosClient from "./axiosClient";
 
 // user apis
+
+
 export const fetchProfile = async () => {
   const { data } = await axiosClient.get("/user/getUser");
   console.log(data);
